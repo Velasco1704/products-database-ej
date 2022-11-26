@@ -26,16 +26,17 @@ export const getProduct = async (req, res) => {
 
 export const createProducts = async (req, res) => {
   try {
-    const { title, price, description } = req.body;
+    const { title, price, description, image } = req.body;
     const [result] = await pool.query(
-      "INSERT INTO products(title, price, description) VALUES(?, ?, ?)",
-      [title, price, description]
+      "INSERT INTO products(title, price, description, image) VALUES(?, ?, ?, ?)",
+      [title, price, description, image]
     );
     res.json({
       id: result.insertId,
       title,
       price,
       description,
+      image
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
